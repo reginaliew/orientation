@@ -6,11 +6,12 @@
         <title>Device Orientation</title>
     </head>
     <body>
-        <div id="alpha"></div>
-        <div id="beta"></div>
-        <div id="gamma"></div>
+        <div id="alpha">Alpha</div>
+        <div id="beta">Beta</div>
+        <div id="gamma">Gamma</div>
         <script>
             window.onload = function(event){
+
                 if (window.DeviceOrientationEvent) {
                     window.addEventListener("deviceorientation", function(event) {
                         console.log("deviceorientation");
@@ -29,12 +30,17 @@
                         console.log(frontToBack);
 
                         handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
-                    }, true);
+                    });
                 } else {
                     console.log("Sorry, your browser doesn't support Device Orientation");
                 }
 
                 var handleOrientationEvent = function(frontToBack, leftToRight, rotateDegrees) {
+
+window.addEventListener("orientationchange", function(event) {
+    console.log("orientationchange");
+    console.log("the orientation of the device is now " + event.target.screen.orientation.angle);
+});
                     // do something amazing
                     var alpha = document.getElementById("alpha");
                     alpha.innerHTML = rotateDegrees;
