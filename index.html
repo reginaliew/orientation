@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Device Orientation</title>
+    </head>
+    <body>
+        <div id="alpha"></div>
+        <div id="beta"></div>
+        <div id="gamma"></div>
+        <script>
+            window.onload = function(event){
+                if (window.DeviceOrientationEvent) {
+                    window.addEventListener("deviceorientation", function(event) {
+                        console.log("deviceorientation");
+                        console.log(event);
+
+                        // alpha: rotation around z-axis
+                        var rotateDegrees = event.alpha;
+                        console.log(rotateDegrees);
+
+                        // gamma: left to right
+                        var leftToRight = event.gamma;
+                        console.log(leftToRight);
+
+                        // beta: front back motion
+                        var frontToBack = event.beta;
+                        console.log(frontToBack);
+
+                        handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
+                    }, true);
+                } else {
+                    console.log("Sorry, your browser doesn't support Device Orientation");
+                }
+
+                var handleOrientationEvent = function(frontToBack, leftToRight, rotateDegrees) {
+                    // do something amazing
+                    var alpha = document.getElementById("alpha");
+                    alpha.innerHTML = rotateDegrees;
+                    var beta = document.getElementById("beta");
+                    beta.innerHTML = frontToBack;
+                    var gamma = document.getElementById("gamma");
+                    gamma.innerHTML = leftToRight;
+                };
+            }
+        </script>
+    </body>
+</html>
