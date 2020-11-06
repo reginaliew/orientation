@@ -17,9 +17,9 @@
 
             var dt = document.getElementById("deviceType");
 
-            if(isIOS) {
+            if(isIOS && !isAndroid) {
                 dt.innerHTML = "isIOS";
-            }else if(isAndroid) {
+            }else if(!isIOS && isAndroid) {
                 dt.innerHTML = "isAndroid";
             }else {
                 dt.innerHTML = "isDesktop";
