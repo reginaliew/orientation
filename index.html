@@ -1,79 +1,37 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Device Orientation</title>
 
-        <style>
-            .able {
-                background: #000;
-                color: #fff;
-            }
-            .disable {
-                background: #fff;
-                color: #999;
-            }
-        </style>
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="msapplication-tap-highlight" content="no" />
+
+        <title>Perfect Pour</title>
+
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
     </head>
     <body>
-        <div id="alpha">Alpha</div>
-        <div id="beta">Beta</div>
-        <div id="gamma">Gamma</div>
-        <div id="cond">Condition: </div>
-        <div id="hold-container">
-            <button id="hold" type="button" name="hold" class="able">Hold</button>
+        <div class="container">
+            <div class="content">
+                <div class="link">
+                    <a href="#">Option 1</a>
+                </div>
+                <div class="link">
+                    <a href="#">Option 2</a>
+                </div>
+                <div class="link">
+                    <a href="orientationTest.html">Orientation Test</a>
+                </div>
+                <div class="link">
+                    <a href="deviceTest.html">Device Test</a>
+                </div>
+            </div>
         </div>
-        <script>
-            window.onload = function(event){
-
-                var holdC = document.getElementById("hold");
-                holdC.className = "disable";
-                holdC.disabled = true;
-
-                if (window.DeviceOrientationEvent) {
-                    window.addEventListener("deviceorientation", function(event) {
-
-                        // alpha: rotation around z-axis
-                        var rotateDegrees = event.alpha;
-
-                        // gamma: left to right
-                        var leftToRight = event.gamma;
-
-                        // beta: front back motion
-                        var frontToBack = event.beta;
-
-                        handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
-                    }, true);
-                } else {
-                    console.log("Sorry, your browser doesn't support Device Orientation");
-                }
-
-                var handleOrientationEvent = function(frontToBack, leftToRight, rotateDegrees) {
-
-                    // do something amazing
-                    var alpha = document.getElementById("alpha");
-                    alpha.innerHTML = "Rotate Degrees:"+rotateDegrees;
-                    var beta = document.getElementById("beta");
-                    beta.innerHTML = "Front To Back: "+frontToBack;
-                    var gamma = document.getElementById("gamma");
-                    gamma.innerHTML = "Left To Right: "+leftToRight;
-
-                    if((rotateDegrees <= 50 && rotateDegrees >= 40) || (rotateDegrees <= 320 && rotateDegrees >= 310)) {
-                        holdC.className = "able";
-                        holdC.disabled = false;
-                    } else {
-                        holdC.className = "disable";
-                        holdC.disabled = true;
-                    }
-                };
-
-                window.addEventListener("click", function(event){
-                    event.preventDefault();
-                    var temp = document.getElementById("cond").innerText;
-                    document.getElementById("cond").innerHTML = temp + " pouring";
-                });
-            }
-        </script>
+        
+        <script src="js/main.js"></script>
     </body>
 </html>
