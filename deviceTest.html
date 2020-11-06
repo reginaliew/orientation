@@ -17,11 +17,13 @@
 
             var dt = document.getElementById("deviceType");
 
-            if(isIOS && !isAndroid) {
+            if(isIOS) {
                 dt.innerHTML = "isIOS";
-            }else if(!isIOS && isAndroid) {
+            }
+            if(isAndroid) {
                 dt.innerHTML = "isAndroid";
-            }else {
+            }
+            if(!isIOS && !isAndroid) {
                 dt.innerHTML = "isDesktop";
             }
         </script>
