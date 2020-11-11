@@ -128,7 +128,7 @@ $(document).ready(function(){
                 percentage = (current/vidLength) * 100;
                 console.log(current + "/" + vidLength + "=" + percentage);
                 if(percentage > 70) {
-                    $("#instruction").html("<b>Straighten</b> the glass");
+                    $("#instruction").html("<b>Straighten</b>&nbsp;the glass");
                 }
             }
         }, 500);
