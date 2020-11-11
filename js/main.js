@@ -18,6 +18,20 @@ $(document).ready(function(){
         alert('Please enable device orientation in Settings > Safari > Motion & Orientation Access.');
     }
     
+    
+    //Detect if Android + Chrome
+    var isAndroid = /android/.test(navigator.userAgent) && !window.MSStream;
+    var isChrome = userAgentString.indexOf("Chrome") > -1;
+
+    if(isAndroid && isChrome){
+        $(".android-motion").show();
+    }
+
+    function denyAndroidMotion(){
+        $(".android-motion").hide();
+        alert('Please enable device orientation in Settings > Site Settings > Motion sensors.');
+    }
+    
 
     //Detect if IOS + Safari
     function requestOrientationPermission(){
@@ -26,6 +40,7 @@ $(document).ready(function(){
             if (response == 'granted') {
                 alert(response)
                 $(".ios-motion").hide();
+                $(".android-motion").hide();
         
                 window.addEventListener('deviceorientation', (e) => {
                     var rotateDegrees = e.alpha;
@@ -35,13 +50,22 @@ $(document).ready(function(){
                 })
             } else {
                 alert(response)
-                denyIOSMotion();
+                if(isIOS && isSafari){
+                    denyIOSMotion();
+                }
+                if(isAndroid && isChrome){
+                    denyAndroidMotion();
+                }
             }
         })
         .catch(console.error)
     }
     
     $("#ios-deny").click(function(){
+        denyIOSMotion();
+    });
+    
+    $("#android-deny").click(function(){
         denyIOSMotion();
     });
     
