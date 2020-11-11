@@ -19,20 +19,6 @@ $(document).ready(function(){
     }
     
 
-    //Detect if Android + Chrome
-    var isAndroid = /android/.test(navigator.userAgent) && !window.MSStream;
-    var isChrome = userAgentString.indexOf("Chrome") > -1;
-
-    if(isAndroid && isChrome){
-        $(".android-motion").show();
-    }
-
-    function denyAndroidMotion(){
-        $(".android-motion").hide();
-        alert('Please enable device orientation in Settings > Site Settings > Motion sensors.');
-    }
-
-
     //Detect if IOS + Safari
     function requestOrientationPermission(){
         DeviceOrientationEvent.requestPermission()
@@ -40,23 +26,16 @@ $(document).ready(function(){
             if (response == 'granted') {
                 alert(response)
                 $(".ios-motion").hide();
-                $(".android-motion").hide();
         
                 window.addEventListener('deviceorientation', (e) => {
                     var rotateDegrees = e.alpha;
                     var leftToRight = e.gamma;
                     var frontToBack = e.beta;
-
                     handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
                 })
             } else {
                 alert(response)
-                if(isIOS && isSafari) {
-                    denyIOSMotion();
-                }
-                if(isAndroid && isChrome){
-                    denyAndroidMotion();
-                }
+                denyIOSMotion();
             }
         })
         .catch(console.error)
@@ -85,10 +64,10 @@ $(document).ready(function(){
 
         if(rotateDegrees <= 70 && rotateDegrees >= 40) {
             $("#instruction").css("opacity", "0");
-            $("#instruction").css("transform", "rotate(45deg)");
+            $(".back").css("transform", "rotate(45deg)");
         } else if(rotateDegrees <= 95 && rotateDegrees >= 85){
             $("#instruction").css("opacity", "0");
-            $("#instruction").css("transform", "rotate(0deg)");
+            $(".back").css("transform", "rotate(0deg)");
         } else {
             $("#instruction").css("opacity", "1");
         }
