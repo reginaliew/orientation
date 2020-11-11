@@ -40,6 +40,14 @@ $(document).ready(function(){
         })
         .catch(console.error)
     }
+    
+    $("#ios-deny").click(function(){
+        denyIOSMotion();
+    });
+    
+    $("#requestPermission").click(function(){
+        requestOrientationPermission();
+    })
 
 
 
