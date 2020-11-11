@@ -8,11 +8,51 @@
         <meta name="msapplication-tap-highlight" content="no" />
 
         <title>Perfect Pour</title>
-
-        <link rel="stylesheet" type="text/css" href="https://raw.githubusercontent.com/reginaliew/orientation/main/css/style.css">
         
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
+        <style>
+            body, html {
+                margin: 0;
+                padding: 0;
+                font-family: sans-serif;
+            }
+            .container {
+                width: 100%;
+                height: 100%;
+                background: #121212;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                position: relative;
+            }
+            .content {
+                width: 480px;
+                height: 100vh;
+                box-sizing: border-box;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            .link {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-sizing: border-box;
+                padding: 30px;
+            }
+            .link a {
+                color: #eee;
+                text-decoration: none;
+                font-size: 2em;
+            }
+            .link a:hover {
+                text-decoration: underline;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -31,7 +71,5 @@
                 </div>
             </div>
         </div>
-        
-        <script src="/js/main.js"></script>
     </body>
 </html>
