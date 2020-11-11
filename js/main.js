@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+    oncontextmenu="return false;";
 
     // Detect Mobile Device
     var userAgentString = window.navigator.userAgent; 
