@@ -112,6 +112,9 @@ $(document).ready(function(){
 
     var vid = document.getElementById("beerVid");
     var vidLength, current, percentage;
+    vid.onloadedmetadata = function() {
+        vidLength = vid.duration;
+    };
 
     var mc = new Hammer(btn);
     mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
@@ -123,7 +126,6 @@ $(document).ready(function(){
 
         setInterval(function(){
             if(start) {
-                vidLength = vid.duration
                 current = vid.currentTime;
                 percentage = (current/vidLength) * 100;
                 console.log(current + "/" + vidLength + "=" + percentage);
