@@ -110,6 +110,10 @@ body, html {
     position: absolute;
     z-index: 20;
 }
+.front.disableSave {
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+}
 .front div {
     flex: 1;
     display: flex;
@@ -133,6 +137,7 @@ body, html {
 .front .button .hold img {
     height: 80%;
     object-fit: contain;
+    pointer-events: none;
 }
 .front .button .hold:focus {
     outline: 0;
