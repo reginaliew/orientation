@@ -28,6 +28,7 @@ $(document).ready(function(){
 
     if(isAndroid && isChrome){
         $(".android-motion").show();
+        alert("using android chrome");
     }
 
     function denyAndroidMotion(){
