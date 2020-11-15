@@ -39,6 +39,7 @@ $(document).ready(function(){
     }
         
    function requestSensorPermission(){
+       alert("Request Sensor Permission.");
        const sensor = new AbsoluteOrientationSensor();
         Promise.all([navigator.permissions.query({ name: "deviceorientation" }),
                      navigator.permissions.query({ name: "devicemotion" }),
