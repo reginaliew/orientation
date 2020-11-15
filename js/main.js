@@ -39,8 +39,9 @@ $(document).ready(function(){
     }
         
    function requestSensorPermission(){
-       alert("Request Sensor Permission.");
-       const sensor = new AbsoluteOrientationSensor();
+       //alert("Request Sensor Permission.");
+       // not working for Android Chrome
+        const sensor = new AbsoluteOrientationSensor();
         Promise.all([
             //navigator.permissions.query({ name: "deviceorientation" }),
                      //navigator.permissions.query({ name: "devicemotion" }),
@@ -50,10 +51,9 @@ $(document).ready(function(){
            .then(results => {
              if (results.every(result => result.state === "granted")) {
                sensor.start();
-        $(".android-motion").hide();
-               alert("Sensor Start.");
+               $(".android-motion").hide();
              } else {
-               alert("No permissions to use AbsoluteOrientationSensor.");
+               alert("No permissions to use AbsoluteOrientationSensor. Please enable device orientation in Settings > Site Settings > Motion sensors.");
              }
        });
    }
@@ -112,14 +112,16 @@ $(document).ready(function(){
             handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
         }, true);
     } else {
-        alert("Sorry, your browser doesn't support Device Orientation");
         console.log("Sorry, your browser doesn't support Device Orientation");
     }
 
     var handleOrientationEvent = function(frontToBack, leftToRight, rotateDegrees) {
+        
+        //$("#instruction").html("Tilt at a&nbsp;<b>45&deg; angle</b>");
+        $("#instruction").html("Angle Now: " + rotateDegrees + "&nbsp;degree");
 
-        if(rotateDegrees <= 70 && rotateDegrees >= 40) {
-            $("#instruction").css("opacity", "0");
+        if(rotateDegrees <= 60 && rotateDegrees >= 40) {
+            $("#instruction").css("opacity", "1");
             $(".back").css("transform", "rotate(45deg)");
         } else if(rotateDegrees <= 95 && rotateDegrees >= 85){
             $("#instruction").css("opacity", "1");
@@ -167,6 +169,7 @@ $(document).ready(function(){
                 console.log(current + "/" + vidLength + "=" + percentage);
                 if(percentage > 70) {
                     $("#instruction").html("<b>Straighten</b>&nbsp;the glass");
+                    $(".glass").css("opacity", "1");
                 }
             }
         }, 500);
