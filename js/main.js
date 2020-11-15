@@ -93,6 +93,7 @@ $(document).ready(function(){
             handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
         }, true);
     } else {
+        alert("Sorry, your browser doesn't support Device Orientation");
         console.log("Sorry, your browser doesn't support Device Orientation");
     }
 
