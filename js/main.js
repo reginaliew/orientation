@@ -49,6 +49,7 @@ $(document).ready(function(){
            .then(results => {
              if (results.every(result => result.state === "granted")) {
                sensor.start();
+        $(".android-motion").hide();
                alert("Sensor Start.");
              } else {
                alert("No permissions to use AbsoluteOrientationSensor.");
