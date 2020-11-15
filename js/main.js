@@ -23,7 +23,7 @@ $(document).ready(function(){
     
     
     //Detect if Android + Chrome
-    var isAndroid = /android/.test(navigator.userAgent) && !window.MSStream;
+    var isAndroid = /Android/.test(navigator.userAgent) && !window.MSStream;
     var isChrome = userAgentString.indexOf("Chrome") > -1;
 
     if(isAndroid && isChrome){
