@@ -134,6 +134,7 @@ $(document).ready(function(){
         if(!start) {
             $(".back").css("opacity", "0");
         }
+        requestSensorPermission();
     }
 
     let start = false;
