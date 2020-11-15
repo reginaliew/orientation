@@ -25,6 +25,8 @@ $(document).ready(function(){
     //Detect if Android + Chrome
     var isAndroid = /Android/.test(navigator.userAgent) && !window.MSStream;
     var isChrome = userAgentString.indexOf("Chrome") > -1;
+    
+    
 
     if(isAndroid && isChrome){
         $(".android-motion").show();
@@ -35,6 +37,23 @@ $(document).ready(function(){
         $(".android-motion").hide();
         alert('Please enable device orientation in Settings > Site Settings > Motion sensors.');
     }
+        
+   function requestSensorPermission(){
+       const sensor = new AbsoluteOrientationSensor();
+        Promise.all([navigator.permissions.query({ name: "deviceorientation" }),
+                     navigator.permissions.query({ name: "devicemotion" }),
+                     navigator.permissions.query({ name: "accelerometer" }),
+                     navigator.permissions.query({ name: "magnetometer" }),
+                     navigator.permissions.query({ name: "gyroscope" })])
+           .then(results => {
+             if (results.every(result => result.state === "granted")) {
+               sensor.start();
+               alert("Sensor Start.");
+             } else {
+               alert("No permissions to use AbsoluteOrientationSensor.");
+             }
+       });
+   }
     
 
     //Detect if IOS + Safari
@@ -44,7 +63,6 @@ $(document).ready(function(){
             if (response == 'granted') {
                 alert(response)
                 $(".ios-motion").hide();
-                $(".android-motion").hide();
         
                 window.addEventListener('deviceorientation', (e) => {
                     var rotateDegrees = e.alpha;
@@ -53,13 +71,7 @@ $(document).ready(function(){
                     handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
                 })
             } else {
-                alert(response)
-                if(isIOS && isSafari){
-                    denyIOSMotion();
-                }
-                if(isAndroid && isChrome){
-                    denyAndroidMotion();
-                }
+                denyIOSMotion();
             }
         })
         .catch(console.error)
@@ -75,6 +87,10 @@ $(document).ready(function(){
     
     $("#requestPermission").click(function(){
         requestOrientationPermission();
+    })
+       
+    $("#and-requestPermission").click(function(){
+        requestSensorPermission();
     })
 
 
