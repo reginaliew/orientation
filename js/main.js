@@ -25,12 +25,9 @@ $(document).ready(function(){
     //Detect if Android + Chrome
     var isAndroid = /Android/.test(navigator.userAgent) && !window.MSStream;
     var isChrome = userAgentString.indexOf("Chrome") > -1;
-    
-    
 
     if(isAndroid && isChrome){
         $(".android-motion").show();
-        alert("using android chrome");
     }
 
     function denyAndroidMotion(){
@@ -39,12 +36,9 @@ $(document).ready(function(){
     }
         
    function requestSensorPermission(){
-       //alert("Request Sensor Permission.");
        // not working for Android Chrome
         const sensor = new AbsoluteOrientationSensor();
         Promise.all([
-            //navigator.permissions.query({ name: "deviceorientation" }),
-                     //navigator.permissions.query({ name: "devicemotion" }),
                      navigator.permissions.query({ name: "accelerometer" }),
                      navigator.permissions.query({ name: "magnetometer" }),
                      navigator.permissions.query({ name: "gyroscope" })])
@@ -64,7 +58,6 @@ $(document).ready(function(){
         DeviceOrientationEvent.requestPermission()
         .then(response => {
             if (response == 'granted') {
-                alert(response)
                 $(".ios-motion").hide();
         
                 window.addEventListener('deviceorientation', (e) => {
@@ -137,7 +130,7 @@ $(document).ready(function(){
         if(!start) {
             $(".back").css("opacity", "0");
         }
-        requestSensorPermission();
+        //requestSensorPermission();
     }
 
     let start = false;
