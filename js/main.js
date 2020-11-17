@@ -116,7 +116,8 @@ $(document).ready(function(){
         if(rotateDegrees <= 60 && rotateDegrees >= 40) {
             $("#instruction").css("opacity", "1");
             $(".back").css("transform", "rotate(20deg)");
-        } else if(rotateDegrees <= 95 && rotateDegrees >= 85){
+        //} else if(rotateDegrees <= 95 && rotateDegrees >= 85){
+        } else if(rotateDegrees <= 10 && rotateDegrees >= 0){
             $("#instruction").css("opacity", "1");
             $(".back").css("transform", "rotate(0deg)");
         } else {
