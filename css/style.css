@@ -196,14 +196,8 @@ body, html {
 }
 .back #beerVid {
     position: absolute;
-    left: -120px;
+    left: -150px;
 }
-
-
-@keyframes dropTheGlass {
-
-}
-
 
 @media only screen and (max-width: 480px) {
     .container {
