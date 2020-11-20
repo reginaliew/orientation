@@ -161,9 +161,11 @@ body, html {
     height: 100%;
     display: flex;
     position: relative;
+    /*
     transition: .1s;
     -webkit-transition: .1s;
     -moz-transition: .1s;
+    */
 }
 .back.disableSave {
     -webkit-user-select:none;
@@ -178,9 +180,11 @@ body, html {
     justify-content: center;
     position: absolute;
     top: -80px;
+    /*
     transition: .1s;
     -webkit-transition: .1s;
     -moz-transition: .1s;
+    */
     opacity: 0;
 }
 .back .glass img {
@@ -214,9 +218,11 @@ body, html {
     align-items: center;
     justify-content: center;
     position: absolute;
+    /*
     transition: .1s;
     -webkit-transition: .1s;
     -moz-transition: .1s;
+    */
     left: -150px;
     top: 120%;
 }
