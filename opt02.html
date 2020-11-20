@@ -116,7 +116,7 @@
                 $("#instruction").html("Angle Now: " + rounded + "&nbsp;degree");
                 $("#instruction").css("opacity", "1");
 
-                if(rounded <= 60 && rounded >= 40) {
+                if(rounded <= -40 && rounded >= -50) {
                     $(".back").css({"transform": "rotate(20deg)", "top": "-50px"});
                     tilt = true;
                     straight = false;
