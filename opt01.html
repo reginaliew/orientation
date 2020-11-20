@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Perfect Pour Option 1</title>
+
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+
+    </head>
+    <body>
+        <div class="container opt1">
+            <div class="cover">
+                Please use a mobile device to join the game.
+            </div>
+            <div class="content">
+                <div class="front disableSave">
+                    <div id="instruction"></div>
+                    <div class="button">
+                        <button id="hold" type="button" class="hold">
+                            <img src="img/hold.png">
+                        </button>
+                    </div>
+                </div>
+                <div class="back disableSave">
+                    <div class="glass">
+                        <img src="img/glass.png" />
+                    </div>
+                    <video id="beerVid" height="120%" playsinline>
+                        <source src="vid/tap5.mp4" type="video/mp4">
+                        <source src="vid/tap5.ogg" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="motion-popup ios-motion">
+            <div class="ios-motion-content">
+                <p>This immersive website requires access to your device motion sensors</p>
+                <div>
+                    <a href="javascript:;" id="ios-deny">Deny</a>
+                    <a href="javascript:;" id="requestPermission">Allow</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="motion-popup android-motion">
+            <div class="motion-content">
+                <p>This immersive website requires access to your device motion sensors. Please enable device orientation in Settings > Site Settings > Motion sensors.</p>
+                <div>
+                    <a href="javascript:;" id="android-deny">Deny</a>
+                    <a href="javascript:;" id="and-requestPermission">Allow</a>
+                </div>
+            </div>
+        </div>
+        
+
+
+        <script src="js/main.js"></script>
+        <script>
+            console.log("option 1");
+
+            let start = false;
+            let initGlassTop = -80;
+            let glassMove = false;
+            let glassMovement = "down";
+
+            var btn = document.getElementById("hold");
+            var vid, vidLength, current, percentage;
+
+            var mc = new Hammer(btn);
+            mc.get('pan').set({ direction: Hammer.DIRECTION_ALL });
+
+
+            // ------------------------------------------------------------------- Device Orientation Event
+            if (window.DeviceOrientationEvent) {
+                window.addEventListener("deviceorientation", function(event) {
+
+                    var rotateDegrees = event.alpha;    // alpha: rotation around z-axis
+                    var leftToRight = event.gamma;    // gamma: left to right
+                    var frontToBack = event.beta;    // beta: front back motion
+
+                    handleOrientationEvent(frontToBack, leftToRight, rotateDegrees);
+                }, true);
+            } else {
+                console.log("Sorry, your browser doesn't support Device Orientation");
+            }
+
+            var handleOrientationEvent = function(frontToBack, leftToRight, rotateDegrees) {
+
+                var rad = Math.atan2(leftToRight, frontToBack);
+                var deg = rad * (180 / Math.PI);
+                var rounded = Math.round(deg);
+                
+                $("#instruction").html("Angle Now: " + rounded + "&nbsp;degree");
+                $("#instruction").css("opacity", "1");
+
+                if(rounded <= 60 && rounded >= 40) {
+                    $(".back").css({"transform": "rotate(20deg)", "top": "-50px"});
+                } else if(rounded <= 10 && rounded >= -10){
+                    $(".back").css({"transform": "rotate(0deg)", "top": "0px"});
+                } else {
+                    // else
+                }
+                
+            };
+                    
+            function init() {
+                $("#instruction").html("Tilt at a&nbsp;<b>45&deg; angle</b>");
+                if(!start) {
+                    $(".back").css("opacity", "0");
+                }
+                vid = document.getElementById("beerVid");
+                vid.onloadedmetadata = function() {
+                    vidLength = vid.duration;
+                    console.log(vidLength)
+                };
+            }
+
+            init();
+
+            mc.on("press", function(ev){
+                start = true;
+                $(".back").css("opacity", "1");
+                $("#beerVid").trigger("play");
+
+                setInterval(function(){
+                    if(start) {
+                        current = vid.currentTime;
+                        percentage = (current/vidLength) * 100;
+                        console.log(current + "/" + vidLength + "=" + percentage);
+                        if(percentage > 70) {
+                            $("#instruction").html("<b>Straighten</b>&nbsp;the glass");
+                            $(".glass").css("opacity", "1");
+                        } else if (percentage >= 100) {
+                            start = false;
+                        }
+                    }
+                }, 500);
+            });
+            mc.on("pressup", function(ev){
+                start = false;
+                $("#beerVid").trigger("pause");
+            });
+
+            mc.on("panup", function(ev) {
+                glassMove = true;
+                glassMovement = "down";
+                setInterval(moveGlass(), 1000);
+            });
+            mc.on("pandown", function(ev) {
+                glassMove = true;
+                glassMovement = "up";
+                setInterval(moveGlass(), 1000);
+            });
+            mc.on("panend", function(ev) {
+                glassMove = false;
+            })
+
+            function moveGlass(){
+                if(glassMove && glassMovement == "down") {
+                    $(".glass").css("top", initGlassTop++);
+                } else if(glassMove && glassMovement == "up") {
+                    if(initGlassTop>-20){
+                        $(".glass").css("top", initGlassTop--);
+                    }
+                }
+            }
+        </script>
+    </body>
+</html>
