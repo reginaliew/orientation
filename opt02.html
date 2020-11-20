@@ -112,11 +112,10 @@
                 var rad = Math.atan2(leftToRight, frontToBack);
                 var deg = rad * (180 / Math.PI);
                 var rounded = Math.round(deg);
-
-                $("#instruction").html("Angle Now: " + rounded + "&nbsp;degree");
                 $("#instruction").css("opacity", "1");
 
                 if(rounded <= -40 && rounded >= -50) {
+                    //$("#instruction").html("Angle Now: " + rounded + "&nbsp;degree");
                     $(".back").css({"transform": "rotate(20deg)", "top": "-50px"});
                     tilt = true;
                     straight = false;
@@ -154,7 +153,9 @@
                     percentage = (initBeerTop/screenHeight)*100;
                     if(percentage < 30) {
                         $("#instruction").html("<b>Straighten</b>&nbsp;the glass");
-                        $(".glass").css("opacity", "1");
+                        if(straight){
+                            $(".glass").css("opacity", "1");
+                        }
                     } else if (percentage <= 0) {
                         start = false;
                     } else {
