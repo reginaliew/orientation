@@ -146,12 +146,14 @@
             
             document.getElementById("hold").addEventListener("touchstart", function(ev){
                 touchEnd = false;
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp + " - PressUp: " + pressUp);
             });
             document.getElementById("hold").addEventListener("touchend", function(ev){
                 touchEnd = true;
                 if(touchEnd && mouseUp && pressUp) {
                     pouring = false;
                 }
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp + " - PressUp: " + pressUp);
             });
             
             $("#hold").mouseup(function(ev){
@@ -159,12 +161,15 @@
                 if(touchEnd && mouseUp && pressUp) {
                     pouring = false;
                 }
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp + " - PressUp: " + pressUp);
             }).mousedown(function(ev){
                 mouseUp = false;
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp + " - PressUp: " + pressUp);
             });
             
             mc.on("press", function(ev){
                 pressUp = false;
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp + " - PressUp: " + pressUp);
                 pouring = true;
                 $(".back").css("opacity", "1");
                 $(".hose").css("opacity", "0");
@@ -173,6 +178,7 @@
             });
             mc.on("pressup", function(ev){
                 pressUp = true;
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp + " - PressUp: " + pressUp);
                 pouring = false;
                 $(".hose").css("opacity", "1");
                 $(".hoseWithBeer").css("opacity", "0");
@@ -180,6 +186,10 @@
             });
             
             mc.on("pan", function(ev){
+                if(touchEnd && mouseUp && pressUp) {
+                    pouring = false;
+                }
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp + " - PressUp: " + pressUp);
                 /*
                 if(!allowPan && !inHold) {
                     pouring = false;
