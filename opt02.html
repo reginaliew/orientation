@@ -163,10 +163,10 @@ $( "#hold" ).mouseover(function() {
             mc.on("pan", function(ev){
                 if(!allowPan && !inHold) {
                     pouring = false;
-                    console.log("Pouring: " + pouring);
+                    console.log("Pouring: " + pouring + " - Hold: " + inHold);
                 } else {
                     pouring = true;
-                    console.log("Pouring: " + pouring);
+                    console.log("Pouring: " + pouring + " - Hold: " + inHold);
                 }
             })
 
