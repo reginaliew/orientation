@@ -82,8 +82,6 @@
             let start = false;
             let pouring = false;
             let allowPan = false;
-            
-            let inHold = false;
 
             let glassMove = false;
             let glassMovement = "down";
@@ -140,13 +138,33 @@
                 }
             }
 
-$( "#hold" ).mouseover(function() {
-    inHold = true;
-}).mouseleave(function(){
-    inHold = false;
-});
 
+            
+            let pressUp = true;
+            let mouseUp = true;
+            let touchEnd = true;
+            
+            document.getElementById("hold").addEventListener("touchstart", function(ev){
+                touchEnd = false;
+            });
+            document.getElementById("hold").addEventListener("touchend", function(ev){
+                touchEnd = true;
+                if(touchEnd && mouseUp && pressUp) {
+                    pouring = false;
+                }
+            });
+            
+            $("#hold").mouseup(function(ev){
+                mouseUp = true;
+                if(touchEnd && mouseUp && pressUp) {
+                    pouring = false;
+                }
+            }).mousedown(function(ev){
+                mouseUp = false;
+            });
+            
             mc.on("press", function(ev){
+                pressUp = false;
                 pouring = true;
                 $(".back").css("opacity", "1");
                 $(".hose").css("opacity", "0");
@@ -154,6 +172,7 @@ $( "#hold" ).mouseover(function() {
                 console.log("Pouring: " + pouring);
             });
             mc.on("pressup", function(ev){
+                pressUp = true;
                 pouring = false;
                 $(".hose").css("opacity", "1");
                 $(".hoseWithBeer").css("opacity", "0");
@@ -161,13 +180,14 @@ $( "#hold" ).mouseover(function() {
             });
             
             mc.on("pan", function(ev){
+                /*
                 if(!allowPan && !inHold) {
                     pouring = false;
                     console.log("Pouring: " + pouring + " - Hold: " + inHold);
                 } else {
                     pouring = true;
                     console.log("Pouring: " + pouring + " - Hold: " + inHold);
-                }
+                }*/
             })
 
             mc.on("panup", function(ev) {
