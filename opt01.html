@@ -126,6 +126,37 @@
             }
 
             init();
+            
+            
+            document.getElementById("hold").addEventListener("touchstart", function(ev){
+                touchEnd = false;
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp);
+            });
+            document.getElementById("hold").addEventListener("touchend", function(ev){
+                touchEnd = true;
+                if(touchEnd && mouseUp) {
+                    pouring = false;
+                    start = false;
+                    $("#beerVid").trigger("pause");
+                }
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp);
+            });
+            
+            $("#hold").mouseup(function(ev){
+                mouseUp = true;
+                if(touchEnd && mouseUp) {
+                    pouring = false;
+                    start = false;
+                    $("#beerVid").trigger("pause");
+                }
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp);
+            }).mousedown(function(ev){
+                mouseUp = false;
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp);
+            });
+            
+            let mouseUp = true;
+            let touchEnd = true;
 
             mc.on("press", function(ev){
                 start = true;
@@ -150,6 +181,13 @@
                 start = false;
                 $("#beerVid").trigger("pause");
             });
+            
+            mc.on("pan", function(ev){
+                if(touchEnd && mouseUp) {
+                    pouring = false;
+                }
+                console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp);
+            })
 
             mc.on("panup", function(ev) {
                 glassMove = true;
