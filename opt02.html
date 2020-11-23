@@ -153,24 +153,23 @@
                 $(".hoseWithBeer").css("opacity", "0");
                 console.log("Pouring: " + pouring);
             });
+            
+            mc.on("pan", function(ev){
+                if(!allowPan) {
+                    pouring = false;
+                    console.log("Pouring: " + pouring);
+                }
+            })
 
             mc.on("panup", function(ev) {
-                if(allowPan){
                     glassMove = true;
                     glassMovement = "down";
                     setInterval(moveGlass(), 1000);
-                } else {
-                    pouring = false;
-                }
             });
             mc.on("pandown", function(ev) {
-                if(allowPan){
                     glassMove = true;
                     glassMovement = "up";
                     setInterval(moveGlass(), 1000);
-                } else {
-                    pouring = false;
-                }
             });
             mc.on("panend", function(ev) {
                 glassMove = false;
