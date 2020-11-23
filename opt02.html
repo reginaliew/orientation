@@ -145,23 +145,6 @@
                 $(".hose").css("opacity", "0");
                 $(".hoseWithBeer").css("opacity", "1");
                 console.log("Pouring: " + pouring);
-
-                setInterval(function(){
-                    if(initBeerTop>=50 && pouring){
-                        $(".beer").css("top", initBeerTop--);
-                    }
-                    percentage = (initBeerTop/screenHeight)*100;
-                    if(percentage < 30) {
-                        $("#instruction").html("<b>Straighten</b>&nbsp;the glass");
-                        if(straight){
-                            $(".glass").css("opacity", "1");
-                        }
-                    } else if (percentage <= 0) {
-                        start = false;
-                    } else {
-                        //
-                    }
-                }, 50);
             });
             mc.on("pressup", function(ev){
                 pouring = false;
@@ -193,6 +176,23 @@
                     }
                 }
             }
+
+            setInterval(function(){
+                if(initBeerTop>=50 && pouring){
+                    $(".beer").css("top", initBeerTop--);
+                }
+                percentage = (initBeerTop/screenHeight)*100;
+                if(percentage < 30) {
+                    $("#instruction").html("<b>Straighten</b>&nbsp;the glass");
+                    if(straight){
+                        $(".glass").css("opacity", "1");
+                    }
+                } else if (percentage <= 0) {
+                    start = false;
+                } else {
+                    //
+                }
+            }, 50);
 
             
         </script>
