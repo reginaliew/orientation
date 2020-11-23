@@ -150,7 +150,7 @@
             });
             document.getElementById("hold").addEventListener("touchend", function(ev){
                 touchEnd = true;
-                if(touchEnd && mouseUp && pressUp) {
+                if(touchEnd && mouseUp) {
                     pouring = false;
                 }
                 console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp + " - PressUp: " + pressUp);
@@ -158,7 +158,7 @@
             
             $("#hold").mouseup(function(ev){
                 mouseUp = true;
-                if(touchEnd && mouseUp && pressUp) {
+                if(touchEnd && mouseUp) {
                     pouring = false;
                 }
                 console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp + " - PressUp: " + pressUp);
@@ -186,7 +186,7 @@
             });
             
             mc.on("pan", function(ev){
-                if(touchEnd && mouseUp && pressUp) {
+                if(touchEnd && mouseUp) {
                     pouring = false;
                 }
                 console.log("TouchEnd: " + touchEnd + " - MouseUp: " + mouseUp + " - PressUp: " + pressUp);
