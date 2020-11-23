@@ -82,6 +82,8 @@
             let start = false;
             let pouring = false;
             let allowPan = false;
+            
+            let inHold = false;
 
             let glassMove = false;
             let glassMovement = "down";
@@ -138,7 +140,11 @@
                 }
             }
 
-
+$( "#hold" ).mouseover(function() {
+    inHold = true;
+}).mouseleave(function(){
+    inHold = false;
+});
 
             mc.on("press", function(ev){
                 pouring = true;
@@ -155,8 +161,11 @@
             });
             
             mc.on("pan", function(ev){
-                if(!allowPan) {
+                if(!allowPan && !inHold) {
                     pouring = false;
+                    console.log("Pouring: " + pouring);
+                } else {
+                    pouring = true;
                     console.log("Pouring: " + pouring);
                 }
             })
