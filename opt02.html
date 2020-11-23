@@ -81,6 +81,7 @@
             
             let start = false;
             let pouring = false;
+            let allowPan = false;
 
             let glassMove = false;
             let glassMovement = "down";
@@ -154,14 +155,22 @@
             });
 
             mc.on("panup", function(ev) {
-                glassMove = true;
-                glassMovement = "down";
-                setInterval(moveGlass(), 1000);
+                if(allowPan){
+                    glassMove = true;
+                    glassMovement = "down";
+                    setInterval(moveGlass(), 1000);
+                } else {
+                    pouring = false;
+                }
             });
             mc.on("pandown", function(ev) {
-                glassMove = true;
-                glassMovement = "up";
-                setInterval(moveGlass(), 1000);
+                if(allowPan){
+                    glassMove = true;
+                    glassMovement = "up";
+                    setInterval(moveGlass(), 1000);
+                } else {
+                    pouring = false;
+                }
             });
             mc.on("panend", function(ev) {
                 glassMove = false;
@@ -183,6 +192,7 @@
                 }
                 percentage = (initBeerTop/screenHeight)*100;
                 if(percentage < 30) {
+                    allowPan = true;
                     $("#instruction").html("<b>Straighten</b>&nbsp;the glass");
                     if(straight){
                         $(".glass").css("opacity", "1");
